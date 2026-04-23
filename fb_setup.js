@@ -7,15 +7,17 @@
 // Input:  n/a
 // Return: n/a
 /**************************************************************/
+
+
   const firebaseConfig = {
-    apiKey: ,
-    authDomain: ,
-    databaseURL: ,
-    projectId: ,
-    storageBucket: ,
-    messagingSenderId:,
-    appId:
-  };
+  apiKey: "AIzaSyB7m4WEx4-5Gh7XnvDNiuKlFLuNh4ugwnE",
+  authDomain: "nia-jobanputra-12comp.firebaseapp.com",
+  databaseURL: "https://nia-jobanputra-12comp-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "nia-jobanputra-12comp",
+  storageBucket: "nia-jobanputra-12comp.firebasestorage.app",
+  messagingSenderId: "983754689901",
+  appId: "1:983754689901:web:4147aa8e330a08e4bc9e64"
+};
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
