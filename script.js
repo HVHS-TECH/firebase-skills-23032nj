@@ -34,3 +34,37 @@ function goodbyeWorld(){
     }
   )
 }
+
+function simpleRead() {
+  console.log("Reading message");
+  firebase.database().ref("/").child("message").once("value", displayRead, fb_readError);
+  console.log("Leaving simpleRead");
+}
+function displayRead(snapshot) {
+  console.log("running displayRead(), the message is: " + snapshot.val())
+  HTML_OUTPUT.innerHTML = snapshot.val();
+}
+
+
+function simpleReadTest() {
+  console.log("Reading message");
+  firebase.database().ref("/").child("hessage").once("value", displayRead, fb_readError);
+  console.log("Leaving simpleRead");
+}
+function displayRead(snapshot) {
+  console.log("running displayRead(), the message is: " + snapshot.val())
+  HTML_OUTPUT.innerHTML = snapshot.val();
+}
+function display(snapshot) {
+  var dbData = snapshot.val();
+  if (dbData == null) { //if there is no data, dbData will be null
+      console.log('There was no record when trying to read the message');
+    }
+    else {
+      console.log("The message is: " + dbData)
+    }
+}
+function fb_readError(error) {
+  console.log("There was an error reading the message");
+  console.error(error);
+}
