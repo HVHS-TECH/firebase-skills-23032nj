@@ -37,24 +37,10 @@ function goodbyeWorld(){
 
 function simpleRead() {
   console.log("Reading message");
-  firebase.database().ref("/").child("message").once("value", displayRead, fb_readError);
+  firebase.database().ref("/").child("message").once("value", display, fb_readError);
   console.log("Leaving simpleRead");
 }
-function displayRead(snapshot) {
-  console.log("running displayRead(), the message is: " + snapshot.val())
-  HTML_OUTPUT.innerHTML = snapshot.val();
-}
 
-
-function simpleReadTest() {
-  console.log("Reading message");
-  firebase.database().ref("/").child("hessage").once("value", displayRead, fb_readError);
-  console.log("Leaving simpleRead");
-}
-function displayRead(snapshot) {
-  console.log("running displayRead(), the message is: " + snapshot.val())
-  HTML_OUTPUT.innerHTML = snapshot.val();
-}
 function display(snapshot) {
   var dbData = snapshot.val();
   if (dbData == null) { //if there is no data, dbData will be null
@@ -64,7 +50,13 @@ function display(snapshot) {
       console.log("The message is: " + dbData)
     }
 }
+
 function fb_readError(error) {
   console.log("There was an error reading the message");
   console.error(error);
+}
+
+function fb_readListener() {
+  console.log("Read Listener");
+  firebase.database().ref('/message').on('value', fb_logDatabaseRead, fb_readError)
 }
