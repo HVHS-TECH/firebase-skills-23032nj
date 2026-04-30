@@ -17,6 +17,8 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 // The ref('/') part tells the operation to write to the base level of the database "/"
 // This means it replaces the whole database with message:Hello World
 /**************************************************************/
+
+//basic write
 function helloWorld(){
   console.log("Running helloWorld()")
   firebase.database().ref('/').set(
@@ -35,10 +37,11 @@ function goodbyeWorld(){
   )
 }
 
-function simpleRead() {
+//basic read
+function fb_logDatabaseRead() {
   console.log("Reading message");
   firebase.database().ref("/").child("message").once("value", display, fb_readError);
-  console.log("Leaving simpleRead");
+  console.log("Leaving fb_logDatabaseRead");
 }
 
 function display(snapshot) {
@@ -56,7 +59,57 @@ function fb_readError(error) {
   console.error(error);
 }
 
+//read listener
 function fb_readListener() {
   console.log("Read Listener");
   firebase.database().ref('/message').on('value', fb_logDatabaseRead, fb_readError)
 }
+
+//complex write 
+let user = "Nia";
+let score = "50";
+
+function highscoreTable() {
+ firebase.database().ref('/').set (
+  {
+    game1: {
+      users: {
+        Nina: 100,
+        Emma: 200,
+        Jess: 150,
+        Adreeta: 90, 
+      }
+    }
+  }
+ );
+}
+
+function addingUserScore() {
+  firebase.database().ref('/game1/users/Amelia/').set(250);
+  firebase.database().ref('/game1/users/Adreeta/').set(900);
+  firebase.database().ref('/game1/users/'+user).set(score);
+}
+
+//complex record
+function highscoreTableTwo() {
+ highscoreTable = {
+  game1: {
+    users: {
+      Nina: 100,
+      Emma: 200,
+      Jess: 150, 
+      Adreeta: 90
+    }
+  },
+  game2: {
+    users: {
+      Nina: 1000,
+      Emma: 2000, 
+      Jess: 1500, 
+      Adreeta: 900
+    }
+  }
+ }
+ firebase.database().ref('/').set(highscoreTable)
+}
+
