@@ -113,3 +113,25 @@ function highscoreTableTwo() {
  firebase.database().ref('/').set(highscoreTable)
 }
 
+//reading a path
+function highscoreTableThree() {
+ highscoreTable = {
+   highScores: {
+     game1: {
+         Nina: 100,
+         Emma: 200, 
+      },
+      game2: {
+          Nina: 1000, 
+          Emma: 2000, 
+      }
+    }
+  }
+   firebase.database().ref('/').set(highscoreTable)
+}
+ 
+
+function fb_readHighScores() {
+  console.log("Reading high scores");
+  firebase.database().ref('/highScores/game1').once('value', fb_logDatabaseRead, fb_readError)
+}
