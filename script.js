@@ -133,5 +133,24 @@ function highscoreTableThree() {
 
 function fb_readHighScores() {
   console.log("Reading high scores");
-  firebase.database().ref('/highScores/game1').once('value', fb_logDatabaseRead, fb_readError)
+  firebase.database().ref('/highScores/game1').once('value', displayHighScores, fb_readError);
 }
+
+function displayHighScores(snapshot) {
+  let highScoresData = snapshot.val();
+  if (highScoresData == null) { //if there is no data, dbData will be null
+      console.log('There was no record when trying to read the message');
+    }
+    else {
+      console.log("Game 1 high scores:")
+      console.log(highScoresData)
+      console.log("Nina got " +highScoresData["Nina"]+" points")
+      //let names = Object.keys(highScores);
+       //for(i = 0; i < names.length; i++) {
+       //let key = names[i];
+       //console.log("Score "+i+" is for "+key +"."+ highScores[key] + " points. ")
+       //}
+    }
+    
+}
+
