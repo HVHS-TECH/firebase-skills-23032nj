@@ -189,6 +189,7 @@ function displaySortedNames(snapshot) {
 function showOneName(child) {
   //console.log(child.val());
   console.log(child.key+" got "+ child.val()+" points");
+  HTML_OUTPUT.innerHTML += "<p>" + child.key+" got "+ child.val()+" points </p>"
 }
 
 //login with google
