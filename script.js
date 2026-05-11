@@ -51,6 +51,7 @@ function display(snapshot) {
     }
     else {
       console.log("The message is: " + dbData)
+      HTML_OUTPUT.innerHTML += "The message is: " + dbData
     }
 }
 
@@ -90,31 +91,8 @@ function addingUserScore() {
   firebase.database().ref('/game1/users/'+user).set(score);
 }
 
-//complex record
-function highscoreTableTwo() {
- highscoreTable = {
-  game1: {
-    users: {
-      Nina: 100,
-      Emma: 200,
-      Jess: 150, 
-      Adreeta: 90
-    }
-  },
-  game2: {
-    users: {
-      Nina: 1000,
-      Emma: 2000, 
-      Jess: 1500, 
-      Adreeta: 900
-    }
-  }
- }
- firebase.database().ref('/').set(highscoreTable)
-}
-
 //reading a path
-function highscoreTableThree() {
+function highscoreTableTwo() {
  highscoreTable = {
    highScores: {
      game1: {
@@ -147,7 +125,8 @@ function displayOneScore(snapshot) {
     else {
       console.log("One score:")
       console.log("Nina got " +gameOneData["Nina"]+" points")
-      console.log
+      HTML_OUTPUT.innerHTML += "Nina got " +gameOneData["Nina"]+" points"
+
     }
 }
 
@@ -159,6 +138,7 @@ function displayHighScores(snapshot) {
   else {
     console.log("High score table:")
     console.log(highScoresData)
+    HTML_OUTPUT.innerHTML += highScoresData 
   }
 }
 
@@ -175,6 +155,8 @@ function displaySortedHighScores(snapshot) {
 function showOneScore(child) {
   //console.log(child.val());
   console.log(child.key+" got "+ child.val()+" points");
+  HTML_OUTPUT.innerHTML += "<p>" + child.key+" got "+ child.val()+" points </p>"
+
 }
 
 function fb_readSortedNames() {
