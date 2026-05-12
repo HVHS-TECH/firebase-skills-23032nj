@@ -114,7 +114,7 @@ function highscoreTableTwo() {
 function fb_readHighScores() {
   console.log("Reading high scores");
   firebase.database().ref('/highScores/game1').once('value', displayOneScore, fb_readError);
-  firebase.database().ref('/highScores').once('value', displayHighScores, fb_readError);
+  firebase.database().ref('/highScores/game1').once('value', displayHighScores, fb_readError);
 }
 
 function displayOneScore(snapshot) {
@@ -125,22 +125,29 @@ function displayOneScore(snapshot) {
     else {
       console.log("One score:")
       console.log("Nina got " +gameOneData["Nina"]+" points")
-      HTML_OUTPUT.innerHTML += "Nina got " +gameOneData["Nina"]+" points"
-
+      HTML_OUTPUT.innerHTML +=  "Nina got " +gameOneData["Nina"]+" points"
     }
 }
 
 function displayHighScores(snapshot) {
   let highScoresData = snapshot.val();
+  let names = Object.keys(highScoresData);
   if (highScoresData == null) {
-    console.log('There was no record when trying to read the message');
+  console.log("There was no record when trying to read the message");
   }
   else {
-    console.log("High score table:")
-    console.log(highScoresData)
-    HTML_OUTPUT.innerHTML += highScoresData 
+    for(i = 0; i < names.length; i++) {
+    let key = names[i];
+    console.log("Score " + i + " is for " + key + "." + highScoresData[key] + "points.")
+    HTML_OUTPUT.innerHTML +=  "Score " + i + " is for " + key + "." + highScoresData[key] + "points."
+    }
   }
 }
+
+//for(i = 0; i < names.length; i++) {
+//  let key = names[i];
+//  console.log("Score " + i + " is for " + key)
+//}
 
 //sorting records (using same high score table in reading a path)
 function fb_readSortedHighScores() {
@@ -176,11 +183,32 @@ function showOneName(child) {
 
 //login with google
 
+var GLOBAL_user; //Google's user object
+
+//set up a listener for the login state of the user
+function fb_login() {
+  authenticationListener = firebase.auth().onAuthStateChanged(fb_handleLogin);
+}
+
+//run when the login state of the user changes
+function fb_handleLogin(_user) {
+  if(_user) {
+    console.log("User is logged in")
+    GLOBAL_user = _user; //save the user to a global variable
+  } else {
+    console.log("User is NOT logged in - starting the popup process")
+    fb_popupLogin();
+  }
+}
+
+//run the Google login popup
 function fb_popupLogin() {
   var provider = new firebase.auth.GoogleAuthProvider();
 
   firebase.auth().signInWithPopup(provider).then((result) => {
     GLOBAL_user = result.user; //save the user details object to a global variable
     console.log("User has logged in")
+    console.log(GLOBAL_user)
+    HTML_OUTPUT.innerHTML += GLOBAL_user
   });
 }
