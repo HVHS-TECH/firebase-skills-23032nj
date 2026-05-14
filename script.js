@@ -195,6 +195,7 @@ function fb_handleLogin(_user) {
   if(_user) {
     console.log("User is logged in")
     GLOBAL_user = _user; //save the user to a global variable
+    HTML_OUTPUT.innerHTML += GLOBAL_user.photoURL
   } else {
     console.log("User is NOT logged in - starting the popup process")
     fb_popupLogin();
@@ -209,6 +210,7 @@ function fb_popupLogin() {
     GLOBAL_user = result.user; //save the user details object to a global variable
     console.log("User has logged in")
     console.log(GLOBAL_user)
-    HTML_OUTPUT.innerHTML += GLOBAL_user
+    HTML_OUTPUT.innerHTML += GLOBAL_user.displayName
+    console.log(GLOBAL_user.displayName)
   });
 }
