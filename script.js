@@ -51,7 +51,7 @@ function display(snapshot) {
     }
     else {
       console.log("The message is: " + dbData)
-      HTML_OUTPUT.innerHTML += "The message is: " + dbData
+      HTML_OUTPUT.innerHTML += "<p> The message is: " + dbData + "</p>"
     }
 }
 
